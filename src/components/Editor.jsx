@@ -14,12 +14,12 @@ const Editor = ({ image }) => {
   const [imageElement, setImageElement] = useState(null);
 
   const exportPNG = () => {
-    const boundaries = clipPath.getBoundingRect();
+    const boundaries = cropHelper.getBoundingRect();
     const dataURL = canvas.toDataURL({
       width: boundaries.width,
       height: boundaries.height,
       left: boundaries.left,
-      top: boundaries.right,
+      top: boundaries.top,
       format: "png",
     });
     const link = document.createElement("a");
