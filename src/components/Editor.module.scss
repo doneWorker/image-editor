@@ -1,0 +1,25 @@
+.canvasHolder {
+  position: absolute;
+  top: calc(50vh - 300px);
+  left: calc(50vw - 500px);
+  width: 1000px;
+  height: 600px;
+  box-shadow: 0 0 5px #ccc;
+}
+
+.exportBtn {
+  cursor: pointer;
+  position: absolute;
+  bottom: 10px;
+  left: calc(50% - 150px);
+  width: 300px;
+  height: 50px;
+  border: none;
+  text-transform: uppercase;
+  background: var(--primary-300);
+  color: white;
+
+  &:hover {
+    background: brightness(1.1);
+  }
+}

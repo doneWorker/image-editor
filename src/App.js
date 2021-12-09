@@ -1,23 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import DropZone from "./components/DropZone";
+import Editor from "./components/Editor";
+
+import "./App.css";
+
+const views = {
+  editor: "editor",
+  upload: "upload",
+};
 
 function App() {
+  const [view, setView] = useState(views.upload);
+  const [image, setImage] = useState(null);
+
+  // receive file
+  // create image element
+  // open editor tab
+  const handleUpload = (file) => {
+    const url = URL.createObjectURL(file);
+    const img = new Image();
+    img.src = url;
+    img.onload = () => setImage(img);
+    setView("editor");
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {view === views.upload ? (
+        <DropZone onUpload={handleUpload} />
+      ) : (
+        <Editor image={image} />
+      )}
     </div>
   );
 }
