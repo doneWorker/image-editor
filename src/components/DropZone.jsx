@@ -2,6 +2,11 @@ import Dropzone from "react-dropzone";
 
 import styles from "./DropZone.module.scss";
 
+/**
+ * DropZone Component
+ * Responsibilities:
+ *   - pass to onUpload prop uploaded file
+ */
 const DropZone = ({ onUpload }) => {
   return (
     <Dropzone

@@ -7,11 +7,18 @@ const CANVAS_WIDTH = 1000;
 const CANVAS_HEIGHT = 600;
 const CANVAS_BG = "white";
 
+/**
+ * Editor Component
+ * Responsibilities:
+ *   - receive IMG element as argument
+ *   - handle crop / image resize
+ *   - export result
+ */
 const Editor = ({ image }) => {
-  const [canvas, setCanvas] = useState(null);
-  const [clipPath, setClipPath] = useState(null);
-  const [cropHelper, setCropHelper] = useState(null);
-  const [imageElement, setImageElement] = useState(null);
+  const [canvas, setCanvas] = useState(null); // fabric.js instance
+  const [clipPath, setClipPath] = useState(null); // fabric.clipPath
+  const [cropHelper, setCropHelper] = useState(null); // `visible` to user crop helper
+  const [imageElement, setImageElement] = useState(null); // image tag
 
   const exportPNG = () => {
     const boundaries = cropHelper.getBoundingRect();
@@ -42,7 +49,9 @@ const Editor = ({ image }) => {
     canvas.requestRenderAll();
   };
 
-  // effects
+  // Effects
+
+  // Bootstrap fabric and set all React component's states
   useEffect(() => {
     const _canvas = new fabric.Canvas("canvas", {
       width: CANVAS_WIDTH,
@@ -72,6 +81,7 @@ const Editor = ({ image }) => {
       }
     });
 
+    // track movements of crop helper to set proper clip path
     const watchForMoving = (e) => {
       const boundaries = e.target.getBoundingRect();
 
@@ -89,6 +99,7 @@ const Editor = ({ image }) => {
     _canvas.on("object:scaling", watchForMoving);
   }, []);
 
+  // Watch for `image` prop updates, when passed, add it to canvas and center
   useEffect(() => {
     if (image === null || canvas === null) return;
 
@@ -111,7 +122,11 @@ const Editor = ({ image }) => {
 
   return (
     <>
-      <div className={styles.canvasHolder} onDoubleClick={handleDblClick}>
+      <div
+        id="canvas-holder"
+        className={styles.canvasHolder}
+        onDoubleClick={handleDblClick}
+      >
         <canvas id="canvas"></canvas>
       </div>
       <button onClick={exportPNG} className={styles.exportBtn}>
