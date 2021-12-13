@@ -63,6 +63,8 @@ const Editor = ({ image }) => {
     const _cropHelper = new fabric.Rect({
       id: "crop-helper",
       fill: "rgba(0,0,0,0)",
+      stroke: "rgba(0,0,0,.2)",
+      strokeWidth: 1,
       selectable: false,
     });
 
@@ -122,6 +124,10 @@ const Editor = ({ image }) => {
 
   return (
     <>
+      <ul className={styles.tips}>
+        <li>Drag - to move image inside crop area</li>
+        <li>DoubleClick - to change crop area</li>
+      </ul>
       <div
         id="canvas-holder"
         className={styles.canvasHolder}
